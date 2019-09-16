@@ -1,7 +1,8 @@
 
-from django.shortcuts import render
-from .models import Post
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import User, Post, Comment, Like
 import operator
+from django.contrib.auth.decorators import login_required
 
 def main(request):
     posts = Post.objects.all()
@@ -28,6 +29,25 @@ def main(request):
         for post in post_list:
             posts.append(post[0])
 
+    try:
+        liked_post = Like.objects.filter(user=request.user).values_list('post__id', flat=True)
+    except:
+        liked_post = None
+
     return render(request, 'insta/main.html', {
         'posts':posts,
+        'liked_post':liked_post
     })
+
+@login_required
+def like(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+
+    if request.method =='POST':
+        try:
+            like = Like.objects.get(user=request.user, post=post)
+            like.delete()
+        except:
+            Like.objects.create(user=request.user, post=post)
+
+    return redirect('main')
