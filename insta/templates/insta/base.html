@@ -17,7 +17,7 @@
       <a class="navbar-brand" href="{% url 'main' %}">
         <i class="fab fa-instagram"></i> CBNU
       </a>
-      <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
           <li class="nav-item">
@@ -32,11 +32,27 @@
           </li>
           {% endif %}
         </ul>
-      </div>
+      </div> -->
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> 
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav ml-auto" style="text-align: right;">
+          {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'popup' %}">로그아웃</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">로그인</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}">회원가입</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
 
